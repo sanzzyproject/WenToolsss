@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Terminal, Server, Code2, Database } from 'lucide-react';
+import { ArrowRight, Terminal, Cpu, Zap, Code2 } from 'lucide-react';
 
 export default function Home() {
   const [techStack, setTechStack] = useState([]);
@@ -19,165 +19,218 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-darkBg text-white overflow-hidden relative selection:bg-sannViolet selection:text-white">
+    <main className="min-h-screen relative overflow-hidden">
       
-      {/* Background Glow Effects */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-sannDarkViolet/30 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[120px] pointer-events-none" />
+      {/* Background Ambience */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-sannBlue/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-sannViolet/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Navbar Simple */}
-      <nav className="fixed top-0 w-full z-50 glass-card border-b-0 px-6 py-4 flex justify-between items-center">
+      {/* Navbar Glass */}
+      <nav className="fixed top-0 w-full z-50 glass-nav px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-sannViolet to-blue-600 rounded-lg flex items-center justify-center font-bold text-white">S</div>
-          <span className="font-bold text-xl tracking-tight">SANN404<span className="text-sannViolet">FORUM</span></span>
+          <div className="w-9 h-9 bg-gradient-to-br from-sannBlue to-sannDarkBlue rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/50">
+            <Code2 className="text-white w-5 h-5" />
+          </div>
+          <span className="font-bold text-xl tracking-tight text-white">SANN404<span className="text-sannBlue">FORUM</span></span>
         </div>
-        <Link href="/dashboard" className="px-5 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm font-medium transition-all backdrop-blur-sm border border-white/10">
-          Login / Dashboard
+        <Link href="/dashboard" className="hidden md:flex items-center gap-2 px-5 py-2 bg-sannBlue/10 hover:bg-sannBlue/20 text-sannBlue border border-sannBlue/20 rounded-full text-sm font-medium transition-all">
+          <Terminal size={16} />
+          Login Console
         </Link>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 container mx-auto text-center relative z-10">
+      {/* HERO SECTION */}
+      <section className="pt-32 pb-20 px-6 container mx-auto flex flex-col items-center text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          className="max-w-4xl"
         >
-          <span className="px-4 py-1.5 rounded-full border border-sannViolet/50 bg-sannViolet/10 text-sannViolet text-sm font-medium mb-6 inline-block">
-            🚀 The Ultimate Developer Ecosystem
-          </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-            Your Projects are Messy... <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sannViolet">
-              We Make Them Work.
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-sannBlue/30 bg-sannBlue/5 text-sannBlue text-xs font-mono mb-6 backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
             </span>
+            System Online v1.0.0
+          </div>
+          
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
+            Build Faster. <br/>
+            <span className="text-gradient">Deploy Smarter.</span>
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            Organize your tools, deploy projects, and access premium scripts in one unified dark-mode workspace. Built for speed, security, and scalability.
+          
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+            Platform ekosistem developer all-in-one. Akses tools premium, kelola project, dan download source code berkualitas tinggi dalam satu dashboard terintegrasi.
           </p>
 
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-             <Link href="/dashboard">
-              <button className="px-8 py-4 bg-sannViolet hover:bg-sannDarkViolet text-white rounded-xl font-bold text-lg shadow-lg shadow-sannViolet/25 transition-all flex items-center gap-2 group">
-                Akses Dashboard
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+             <Link href="/dashboard" className="w-full sm:w-auto">
+              <button className="w-full px-8 py-4 bg-sannBlue hover:bg-blue-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-900/30 transition-all flex items-center justify-center gap-2 group hover:-translate-y-1">
+                Buka Dashboard
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
-            <a href="https://t.me/sannnforums" target="_blank" className="px-8 py-4 bg-transparent border border-gray-700 hover:border-gray-500 rounded-xl font-medium text-gray-300 transition-all">
-              Join Community
+            <a href="https://t.me/sannnforums" target="_blank" className="w-full sm:w-auto px-8 py-4 bg-transparent border border-gray-700 hover:border-gray-500 hover:bg-white/5 rounded-xl font-medium text-gray-300 transition-all">
+              Join Telegram
             </a>
           </div>
         </motion.div>
 
-        {/* Hero Image Mockup (Visual Representation) */}
+        {/* Hero Visual */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="mt-16 mx-auto max-w-5xl rounded-2xl overflow-hidden border border-gray-800 shadow-2xl shadow-sannViolet/10"
+          className="mt-16 w-full max-w-5xl aspect-video rounded-2xl overflow-hidden border border-gray-800 shadow-2xl relative group"
         >
-          {/* Menggunakan gambar coding reallife */}
+          <div className="absolute inset-0 bg-gradient-to-t from-darkBg to-transparent z-10 opacity-60"></div>
+          {/* Unsplash Image: Code Editor / Dark Mode Setup */}
           <img 
-            src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80" 
-            alt="Dashboard Preview" 
-            className="w-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700"
+            src="https://images.unsplash.com/photo-1607799275518-d58665d096b1?q=80&w=1600&auto=format&fit=crop" 
+            alt="Developer Dashboard SANN404" 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
           />
+          
+          {/* Floating UI Elements (Decoration) */}
+          <div className="absolute bottom-8 left-8 z-20 glass-panel p-4 rounded-xl flex items-center gap-4 animate-float hidden md:flex">
+             <div className="p-2 bg-green-500/20 rounded-lg text-green-400"><Terminal size={20}/></div>
+             <div>
+                <p className="text-xs text-gray-400">Status</p>
+                <p className="font-mono text-sm font-bold text-green-400">System Stable</p>
+             </div>
+          </div>
         </motion.div>
       </section>
 
-      {/* Tech Stack Section */}
-      <section className="py-20 border-t border-gray-800 bg-black/20">
+      {/* TECH STACK GRID */}
+      <section className="py-24 bg-black/20 border-y border-white/5">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold mb-4">Mastered Technologies</h2>
-            <p className="text-gray-400">Platform ini dibangun dan dikelola dengan stack teknologi modern.</p>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Powered by Modern Tech</h2>
+            <p className="text-gray-400 max-w-xl mx-auto">
+              Dibangun dengan teknologi terkini untuk performa maksimal. Full Stack Development environment.
+            </p>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-8 items-center">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
             {loading ? (
-              <p className="text-gray-600">Loading Tech Stack...</p>
+              <div className="text-sannBlue animate-pulse">Loading Asset...</div>
             ) : (
               techStack.map((tech, idx) => (
                 <motion.div 
                   key={idx}
-                  whileHover={{ y: -5 }}
-                  className="flex flex-col items-center gap-2 group"
+                  whileHover={{ y: -5, scale: 1.1 }}
+                  className="flex flex-col items-center gap-3 group cursor-pointer"
                 >
-                  <div className={`w-16 h-16 p-3 rounded-xl bg-gray-900 border border-gray-800 group-hover:border-sannViolet/50 transition-all flex items-center justify-center ${tech.invert ? 'bg-gray-200' : ''}`}>
-                    <img src={tech.logo} alt={tech.name} className="w-full h-full object-contain" />
+                  <div className={`w-16 h-16 md:w-20 md:h-20 p-4 rounded-2xl bg-cardBg border border-white/5 group-hover:border-sannBlue/50 shadow-lg group-hover:shadow-sannBlue/20 transition-all flex items-center justify-center ${tech.invert ? 'bg-white text-black' : ''}`}>
+                    {tech.isCustom ? (
+                        <span className="font-extrabold text-2xl text-green-500 tracking-tighter">Ac</span>
+                    ) : (
+                        <img src={tech.logo} alt={tech.name} className="w-full h-full object-contain" />
+                    )}
                   </div>
-                  <span className="text-xs text-gray-500 font-mono group-hover:text-sannViolet">{tech.name}</span>
+                  <span className="text-xs md:text-sm text-gray-500 font-mono font-medium group-hover:text-sannBlue transition-colors">{tech.name}</span>
                 </motion.div>
               ))
             )}
-            {/* Manual add for Acode since it might not be in API list sometimes */}
-            <div className="flex flex-col items-center gap-2 group">
-                 <div className="w-16 h-16 p-3 rounded-xl bg-gray-900 border border-gray-800 group-hover:border-sannViolet/50 transition-all flex items-center justify-center">
-                    <span className="font-bold text-2xl text-green-500">A</span>
-                 </div>
-                 <span className="text-xs text-gray-500 font-mono">Acode</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT & ARCHITECTURE */}
+      <section className="py-24 container mx-auto px-6">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="order-2 md:order-1">
+             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                {/* Unsplash Image: Server Room / Mobile Coding */}
+                <img 
+                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop" 
+                    alt="Cyberpunk Server" 
+                    className="w-full object-cover hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-sannBlue/10 mix-blend-overlay"></div>
+             </div>
+          </div>
+          
+          <div className="order-1 md:order-2">
+            <h2 className="text-4xl font-bold mb-6">Designed for <br/> <span className="text-gradient">Mobile Scalability</span></h2>
+            <p className="text-gray-400 mb-8 leading-relaxed text-lg">
+              SANN404 FORUM bukan sekadar website biasa. Ini adalah bukti konsep bahwa pengembangan web modern skala besar bisa dilakukan di mana saja.
+            </p>
+            
+            <div className="space-y-6">
+                <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-sannBlue/10 flex items-center justify-center text-sannBlue shrink-0">
+                        <Zap size={24}/>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-lg text-white">Next.js & Node.js Core</h4>
+                        <p className="text-sm text-gray-500 mt-1">Routing sisi server yang cepat dan API yang aman untuk pengelolaan data project.</p>
+                    </div>
+                </div>
+                
+                <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 shrink-0">
+                        <Code2 size={24}/>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-lg text-white">Built on Acode (Android)</h4>
+                        <p className="text-sm text-gray-500 mt-1">100% ditulis dan dideploy menggunakan perangkat mobile melalui editor Acode.</p>
+                    </div>
+                </div>
+
+                <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0">
+                        <Cpu size={24}/>
+                    </div>
+                    <div>
+                        <h4 className="font-bold text-lg text-white">Tailwind & Framer Motion</h4>
+                        <p className="text-sm text-gray-500 mt-1">User Interface yang responsif, modern, dan penuh animasi interaktif.</p>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About & Info Section */}
-      <section className="py-20 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Built for Scalability, <br/> Designed for <span className="text-sannViolet">Humans.</span></h2>
-          <p className="text-gray-400 mb-6 leading-relaxed">
-            SANN404 FORUM bukan sekadar kumpulan link. Ini adalah ekosistem yang dirancang dengan **Next.js** dan **Node.js** untuk memastikan performa maksimal. 
-          </p>
-          <ul className="space-y-4 text-gray-300">
-            <li className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-sannViolet/20 text-sannViolet"><Terminal size={20}/></div>
-              <span>Didevelop penuh menggunakan Acode di Android.</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400"><Database size={20}/></div>
-              <span>Backend API Routes untuk keamanan data project.</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-green-500/20 text-green-400"><Code2 size={20}/></div>
-              <span>Open Source & Community Driven.</span>
-            </li>
-          </ul>
-        </div>
-        <div className="relative">
-             <img 
-            src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?auto=format&fit=crop&w=800&q=80" 
-            alt="Server Data" 
-            className="rounded-2xl shadow-2xl border border-gray-800 relative z-10"
-          />
-          <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-sannViolet/30 rounded-2xl -z-0"></div>
-        </div>
-      </section>
+      {/* FOOTER */}
+      <footer className="bg-black py-12 border-t border-white/10 mt-10">
+        <div className="container mx-auto px-6 text-center md:text-left grid md:grid-cols-4 gap-8">
+            <div className="md:col-span-2">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
+                    <Code2 className="text-sannBlue"/>
+                    <h3 className="text-xl font-bold text-white">SANN404 FORUM</h3>
+                </div>
+                <p className="text-gray-500 text-sm max-w-sm mx-auto md:mx-0">
+                    Kami menyediakan alat dan sumber daya terbaik untuk membantu developer membangun masa depan. Terus berinovasi, terus berkarya.
+                </p>
+            </div>
+            
+            <div>
+                <h4 className="text-white font-bold mb-4">Quick Links</h4>
+                <ul className="space-y-2 text-sm text-gray-500">
+                    <li><Link href="/dashboard" className="hover:text-sannBlue transition-colors">Tools Dashboard</Link></li>
+                    <li><a href="https://t.me/sannnforums" className="hover:text-sannBlue transition-colors">Telegram Community</a></li>
+                    <li><a href="https://roadmap.sh" className="hover:text-sannBlue transition-colors">Developer Roadmap</a></li>
+                </ul>
+            </div>
 
-      {/* Footer Professional */}
-      <footer className="bg-black py-12 border-t border-gray-800 text-center md:text-left">
-        <div className="container mx-auto px-6 grid md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold text-white mb-4">SANN404 FORUM</h3>
-            <p className="text-gray-500 max-w-xs">
-              Platform tools developer nomor #1 yang dikembangkan dengan cinta dan kopi.
+            <div>
+                <h4 className="text-white font-bold mb-4">Company</h4>
+                <ul className="space-y-2 text-sm text-gray-500">
+                    <li><a href="https://saweria.co/sannnforums" className="hover:text-sannBlue transition-colors">Support & Donate</a></li>
+                    <li><span className="text-gray-600 cursor-not-allowed">Terms of Service</span></li>
+                    <li><span className="text-gray-600 cursor-not-allowed">Privacy Policy</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div className="border-t border-white/5 mt-12 pt-8 text-center">
+            <p className="text-gray-600 text-xs font-mono">
+                &copy; 2024 SANN404 FORUM Corp. Developed by <span className="text-sannBlue">SANN404</span>. <br/>
+                All Rights Reserved.
             </p>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-4">Links</h4>
-            <ul className="space-y-2 text-gray-500 text-sm">
-              <li><Link href="/dashboard">Dashboard Tools</Link></li>
-              <li><a href="https://saweria.co/sannnforums">Donasi / Support</a></li>
-              <li><a href="https://roadmap.sh">Developer Roadmap</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-4">Legal & Credit</h4>
-            <p className="text-gray-500 text-sm">
-              Developed by <span className="text-white">SANN404</span>. <br/>
-              &copy; 2024 SannnForums Corp. <br/>
-              All Rights Reserved.
-            </p>
-          </div>
         </div>
       </footer>
     </main>
