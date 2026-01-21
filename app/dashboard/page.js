@@ -1,109 +1,147 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-export default function Home() {
-  const [techStack, setTechStack] = useState([]);
+export default function Dashboard() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/data')
-      .then((res) => res.json())
-      .then((data) => {
-        setTechStack(data.techStack || []);
-      });
+    // Simulasi loading agar spinner terlihat
+    setTimeout(() => {
+      fetch('/api/data')
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+          setLoading(false);
+        });
+    }, 2000); // 2 detik loading
   }, []);
 
-  return (
-    <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
-      
-      {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md px-6 py-5 border-b border-gray-100">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full border border-black flex items-center justify-center font-bold text-sm font-serif">
-              S4
-            </div>
-            <span className="font-bold text-sm tracking-wide hidden sm:block">/ hello@sann404.dev</span>
-          </div>
-          
-          <div className="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-            <a href="#" className="hover:text-black transition-colors">Product</a>
-            <a href="#" className="hover:text-black transition-colors">Resources</a>
-            <a href="#" className="hover:text-black transition-colors">Our Work</a>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="text-sm font-medium hover:underline">FAQ</Link>
-            <Link href="/dashboard" className="px-5 py-2.5 rounded-full border border-black text-sm font-medium hover:bg-black hover:text-white transition-all">
-              Open Dashboard
-            </Link>
-          </div>
+  // TAMPILAN LOADING SPINNER (Sesuai Request)
+  if (loading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner">
+          <div className="spinnerin"></div>
         </div>
-      </nav>
+      </div>
+    );
+  }
 
-      {/* HERO SECTION */}
-      <section className="pt-40 pb-20 px-6 container mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-6 block">
-            — DEVELOPMENT ECOSYSTEM —
+  // KOMPONEN KARTU (Sesuai CSS User)
+  const ToolCard = ({ title, desc, link, isPremium }) => (
+    <div className="card">
+      <div className="card__border"></div>
+      <div className="card_title__container">
+        <span className="card_title">{title}</span>
+        <p className="card_paragraph">
+          {desc}
+        </p>
+      </div>
+      <hr className="line" />
+      <ul className="card__list">
+        <li className="card__list_item">
+          <span className="check">
+            <svg className="check_svg" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path clipRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" fillRule="evenodd"></path>
+            </svg>
           </span>
-          
-          <h1 className="text-5xl md:text-7xl font-serif text-black leading-[1.1] mb-8">
-            The Essential Stack That <br/>
-            <span className="italic">Empowers</span> Developers
-          </h1>
-          
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-12 font-light">
-            A platform delivering ultra-fast, dynamic & personalized project resources. <br/>
-            Everything you need in one unified workflow.
-          </p>
+          <span className="list_text">High Performance</span>
+        </li>
+        <li className="card__list_item">
+          <span className="check">
+            <svg className="check_svg" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path clipRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" fillRule="evenodd"></path>
+            </svg>
+          </span>
+          <span className="list_text">Secure Access</span>
+        </li>
+      </ul>
+      <a href={link} target="_blank" rel="noopener noreferrer" className="w-full">
+        <button className="button">
+          {isPremium ? "ACCESS PREMIUM" : "OPEN TOOL"}
+        </button>
+      </a>
+    </div>
+  );
 
-          {/* TECH STACK GRID (REPLACING THE ICONS IN IMAGE) */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-5xl mx-auto mb-16">
-            {techStack.slice(0, 5).map((tech, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-gray-50 flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform cursor-pointer relative group">
-                {idx === 2 && (
-                  <div className="absolute top-4 right-4 w-3 h-3 bg-black rounded-full border-2 border-white"></div>
-                )}
-                <img src={tech.logo} alt={tech.name} className="w-12 h-12 object-contain" />
-                <span className="text-sm font-bold text-gray-800">{tech.name}</span>
-              </div>
+  return (
+    <div className="min-h-screen bg-[#0f0f13] text-white p-6 md:p-10">
+      
+      {/* Header Dashboard */}
+      <header className="max-w-7xl mx-auto flex justify-between items-end mb-12 border-b border-gray-800 pb-6">
+        <div>
+           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+             CONSOLE DASHBOARD
+           </h1>
+           <p className="text-gray-400 text-sm mt-2 font-mono">Select a module to execute.</p>
+        </div>
+        <Link href="/" className="px-4 py-2 text-xs font-mono border border-gray-700 rounded hover:bg-gray-800 transition-colors">
+          EXIT TERMINAL
+        </Link>
+      </header>
+
+      <div className="max-w-7xl mx-auto space-y-16">
+        
+        {/* SECTION PREMIUM */}
+        {data.premium && (
+          <section>
+             <h2 className="text-xl font-bold mb-6 text-yellow-500 flex items-center gap-2">
+               ⚡ VIP MODULE
+             </h2>
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <ToolCard 
+                  title={data.premium.title} 
+                  desc={data.premium.desc} 
+                  link={data.premium.link}
+                  isPremium={true}
+                />
+             </div>
+          </section>
+        )}
+
+        {/* SECTION MAIN TOOLS */}
+        <section>
+          <h2 className="text-xl font-bold mb-6 text-cyan-400 flex items-center gap-2">
+            💠 CORE UTILITIES
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {data.mainTools.map((tool, idx) => (
+              <ToolCard 
+                key={idx} 
+                title={tool.name} 
+                desc={tool.detail} 
+                link={tool.link} 
+              />
             ))}
           </div>
+        </section>
 
-          <div className="flex flex-col items-center gap-6">
-            <Link href="/dashboard">
-              <button className="px-10 py-4 bg-black text-white rounded-full font-medium text-lg hover:shadow-2xl hover:shadow-gray-400/50 transition-all transform hover:scale-105">
-                Get Started — It's Free
-              </button>
-            </Link>
-            
-            <div className="flex gap-8 text-xs font-medium text-gray-500 mt-4">
-              <span className="flex items-center gap-1">✓ Free Access</span>
-              <span className="flex items-center gap-1">✓ No Credit Card Required</span>
-              <span className="flex items-center gap-1">✓ Open Source</span>
-            </div>
+        {/* SECTION PROJECTS */}
+        <section>
+          <h2 className="text-xl font-bold mb-6 text-purple-400 flex items-center gap-2">
+             🚀 PROJECT REPOSITORY
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {data.projects.map((proj, idx) => (
+              <ToolCard 
+                key={idx} 
+                title={proj.name} 
+                desc={proj.desc} 
+                link={proj.link} 
+              />
+            ))}
           </div>
-        </motion.div>
-      </section>
+        </section>
 
-      {/* FOOTER LOGOS */}
-      <footer className="py-12 border-t border-gray-100 mt-10">
-        <div className="container mx-auto px-6 flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-           {/* Mockup logos for visual balance */}
-           <h3 className="font-bold text-xl font-serif">Express.js</h3>
-           <h3 className="font-bold text-xl font-serif">React</h3>
-           <h3 className="font-bold text-xl font-serif">Next.js</h3>
-           <h3 className="font-bold text-xl font-serif">Tailwind</h3>
-           <h3 className="font-bold text-xl font-serif">GitHub</h3>
-        </div>
-      </footer>
-    </main>
+        <footer className="text-center pt-10 border-t border-gray-800 text-gray-600 text-xs font-mono">
+           SYSTEM STATUS: ONLINE <br/>
+           {data.company.copyright}
+        </footer>
+
+      </div>
+    </div>
   );
 }
