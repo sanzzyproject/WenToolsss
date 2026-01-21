@@ -1,6 +1,6 @@
 {
-  "name": "sann404-forum",
-  "version": "1.0.0",
+  "name": "sann404-forum-dark",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
