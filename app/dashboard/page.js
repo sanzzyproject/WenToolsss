@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Coffee, Loader2, Star, Zap, Code, Shield } from 'lucide-react';
+import { ExternalLink, Coffee, Loader2, Search, Cpu, Lock, Zap, Shield } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch data dari Backend Node.js kita
   useEffect(() => {
     fetch('/api/data')
       .then((res) => res.json())
@@ -21,133 +20,154 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-sannWhite">
-        <Loader2 className="animate-spin text-sannBlue w-10 h-10" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-darkBg text-white gap-4">
+        <Loader2 className="animate-spin text-sannViolet w-12 h-12" />
+        <p className="text-gray-500 animate-pulse">Memuat Assets SANN404...</p>
       </div>
     );
   }
 
-  // Animation Variants
   const container = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
 
-  const item = {
+  const itemAnim = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 }
   };
 
   return (
-    <div className="min-h-screen bg-sannWhite p-4 md:p-8">
+    <div className="min-h-screen bg-darkBg text-white p-4 md:p-8 relative">
+      
+      {/* Background Decor */}
+      <div className="fixed top-0 right-0 w-[400px] h-[400px] bg-sannViolet/10 rounded-full blur-[100px] pointer-events-none" />
+
       <motion.div 
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-4xl mx-auto space-y-8"
+        className="max-w-6xl mx-auto space-y-12 relative z-10"
       >
         
-        {/* Header */}
-        <header className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold text-slate-800 border-l-4 border-sannBlue pl-4">
-              Dashboard Tools
-            </h2>
-            <Link href="/" className="text-sm text-slate-400 hover:text-sannBlue">Log Out</Link>
+        {/* Header Dashboard */}
+        <header className="flex flex-col md:flex-row justify-between items-end border-b border-gray-800 pb-6 gap-4">
+            <div>
+              <h1 className="text-3xl font-bold mb-1">Tools Dashboard</h1>
+              <p className="text-gray-400 text-sm">Welcome back, Developer.</p>
+            </div>
+            <Link href="/" className="px-4 py-2 rounded-lg border border-gray-700 hover:bg-gray-800 text-sm transition-colors text-gray-300">
+              &larr; Kembali ke Home
+            </Link>
         </header>
 
-        {/* 1. PREMIUM SECTION */}
+        {/* PREMIUM ACCESS CARD (Highlight) */}
         {data.premium && (
           <motion.a 
-            variants={item}
+            variants={itemAnim}
             href={data.premium.link}
             target="_blank"
-            className="block relative overflow-hidden bg-gradient-to-r from-sannBlue to-blue-600 rounded-2xl p-6 text-white shadow-xl shadow-blue-500/20 transform transition hover:scale-[1.02]"
+            className="block relative overflow-hidden rounded-2xl p-1 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 shadow-xl shadow-yellow-900/20 group"
           >
-            <div className="relative z-10 flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-bold flex items-center gap-2">
-                  <Star className="fill-yellow-400 text-yellow-400" /> 
-                  {data.premium.title}
-                </h3>
-                <p className="text-blue-100 text-sm mt-1">Tap to access exclusive content</p>
+            <div className="bg-gray-900 rounded-xl p-6 h-full flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-yellow-500/20 rounded-lg text-yellow-500">
+                  <Lock size={28} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white group-hover:text-yellow-400 transition-colors">
+                    {data.premium.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mt-1">{data.premium.desc}</p>
+                </div>
               </div>
-              <ExternalLink className="opacity-80" />
+              <div className="px-6 py-2 bg-yellow-500 text-black font-bold rounded-full text-sm">
+                Akses Sekarang
+              </div>
             </div>
-            {/* Dekorasi Background */}
-            <div className="absolute right-0 top-0 h-full w-1/2 bg-white/10 skew-x-12"></div>
           </motion.a>
         )}
 
-        {/* 2. MAIN TOOLS GRID */}
+        {/* MAIN TOOLS (Grid Besar) */}
         <section>
-          <h3 className="text-slate-500 font-semibold mb-3 flex items-center gap-2"><Shield size={18}/> Main Access</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex items-center gap-2 mb-6 text-sannViolet">
+            <Cpu size={20} />
+            <h3 className="font-bold text-lg tracking-wider uppercase">Core Utilities</h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {data.mainTools.map((tool, idx) => (
               <motion.a
                 key={idx}
-                variants={item}
+                variants={itemAnim}
                 href={tool.link}
                 target="_blank"
-                className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm hover:shadow-md hover:border-sannBlue transition-all flex items-center justify-between group"
+                className="glass-card p-6 rounded-2xl hover:bg-gray-800/50 transition-all group border border-gray-800 hover:border-sannViolet/50"
               >
-                <div className="flex items-center gap-3">
-                  <div className="bg-blue-50 p-2 rounded-lg text-sannBlue group-hover:bg-sannBlue group-hover:text-white transition-colors">
-                    <Zap size={20} />
+                <div className="flex justify-between items-start mb-4">
+                  <div className="p-3 bg-blue-500/10 rounded-lg text-blue-400 group-hover:bg-sannViolet group-hover:text-white transition-all">
+                    <Zap size={24} />
                   </div>
-                  <span className="font-medium text-slate-700">{tool.name}</span>
+                  <ExternalLink size={16} className="text-gray-600 group-hover:text-white" />
                 </div>
-                <ExternalLink size={16} className="text-slate-300 group-hover:text-sannBlue" />
+                <h4 className="font-bold text-lg mb-2">{tool.name}</h4>
+                <p className="text-xs text-gray-400 leading-relaxed h-10 overflow-hidden">
+                  {tool.detail}
+                </p>
               </motion.a>
             ))}
           </div>
         </section>
 
-        {/* 3. NEW PROJECTS LIST */}
+        {/* PROJECTS LIST (Grid Rapat) */}
         <section>
-          <h3 className="text-slate-500 font-semibold mb-3 flex items-center gap-2"><Code size={18}/> New Projects</h3>
-          <div className="grid grid-cols-1 gap-3">
+          <div className="flex items-center gap-2 mb-6 text-green-400">
+            <Shield size={20} />
+            <h3 className="font-bold text-lg tracking-wider uppercase">Project Repository</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {data.projects.map((proj, idx) => (
               <motion.a
                 key={idx}
-                variants={item}
+                variants={itemAnim}
                 href={proj.link}
                 target="_blank"
-                className="group bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:ring-2 hover:ring-sannBlue/20 transition-all"
+                className="flex items-start gap-4 p-4 rounded-xl border border-gray-800 bg-gray-900/40 hover:bg-gray-800 transition-all hover:translate-x-1 group"
               >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h4 className="font-bold text-slate-800 group-hover:text-sannBlue transition-colors">
-                      {proj.name}
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-1 italic">
-                      {proj.desc}
-                    </p>
-                  </div>
-                  <div className="bg-slate-50 px-2 py-1 rounded text-xs text-slate-400 border border-slate-100">
-                    Open
-                  </div>
+                <div className="mt-1 w-2 h-2 rounded-full bg-gray-600 group-hover:bg-green-400 transition-colors shadow-lg shadow-green-400/0 group-hover:shadow-green-400/50"></div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-gray-200 group-hover:text-white mb-1">
+                    {proj.name}
+                  </h4>
+                  <p className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors">
+                    {proj.desc}
+                  </p>
+                </div>
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowRight size={16} className="text-sannViolet"/>
                 </div>
               </motion.a>
             ))}
           </div>
         </section>
 
-        {/* 4. FOOTER / SUPPORT */}
-        <motion.div variants={item} className="mt-12 pt-8 border-t border-slate-200 text-center">
-          <a 
-            href={data.support.link}
-            target="_blank"
-            className="inline-flex items-center gap-2 text-slate-600 hover:text-orange-500 transition-colors bg-white px-6 py-2 rounded-full shadow-sm border border-slate-200"
-          >
-            <Coffee size={20} />
-            <span className="font-medium">Traktir Kopi {data.support.owner}</span>
-          </a>
-          <p className="text-slate-400 text-xs mt-4">Powered by SANN404 &bull; React &bull; Next.js</p>
+        {/* Footer Support Area */}
+        <motion.div variants={itemAnim} className="pt-10 mt-10 border-t border-gray-800 text-center">
+          <div className="inline-block p-[1px] rounded-full bg-gradient-to-r from-pink-500 to-violet-500 mb-6">
+            <a 
+              href={data.company.support}
+              target="_blank"
+              className="block px-8 py-3 rounded-full bg-black hover:bg-gray-900 transition-all text-white font-medium flex items-center gap-2"
+            >
+              <Coffee size={18} className="text-pink-500" />
+              Support Development (Saweria)
+            </a>
+          </div>
+          <p className="text-gray-600 text-xs">
+            {data.company.copyright} <br/>
+            Engineered by <span className="text-sannViolet font-bold">{data.company.owner}</span>
+          </p>
         </motion.div>
 
       </motion.div>
