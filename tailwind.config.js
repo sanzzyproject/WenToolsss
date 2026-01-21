@@ -8,12 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        darkBg: '#0B0C10',       // Hitam Pekat
-        darkCard: '#1F2833',     // Abu Gelap untuk Card
-        neonPurple: '#C5C6C7',   // Abu Terang text
-        sannAccent: '#66FCF1',   // Cyan Neon (Aksen)
-        sannViolet: '#8b5cf6',   // Ungu sesuai gambar referensi
-        sannDarkViolet: '#4c1d95',
+        darkBg: '#020617', // Slate 950 (Background Utama)
+        cardBg: '#0f172a', // Slate 900 (Background Card)
+        sannWhite: '#f8fafc', // Slate 50 (Putih Tua)
+        sannBlue: '#2563eb',  // Blue 600 (Biru Utama)
+        sannDarkBlue: '#1e3a8a', // Blue 900
+        sannViolet: '#7c3aed', // Aksen Violet dikit biar modern
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -21,7 +21,7 @@ module.exports = {
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(-10px)' },
         }
       }
     },
