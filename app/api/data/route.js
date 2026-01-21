@@ -16,19 +16,17 @@ export async function GET() {
       { name: "CSS3", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
       { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
       { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-      { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
       { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-      { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
     ],
     premium: {
       title: "PREMIUM KERNEL ACCESS",
       link: "https://lynk.id/sannnx",
-      desc: "Akses prioritas ke repositori privat, skrip otomatisasi tingkat lanjut, dan dukungan pengembang langsung."
+      desc: "Akses prioritas ke soure code premium, skrip otomatisasi tingkat lanjut, dan dukungan pengembang langsung."
     },
     mainTools: [
       { name: "Universal Tools Hub", link: "https://webtoolssx.pages.dev", detail: "Suite komprehensif utilitas pengembangan web: Formatter, Converter, Minifier dalam satu antarmuka." },
       { name: "Developer Roadmap", link: "https://roadmap.sh", detail: "Panduan jalur karir terstruktur untuk Frontend, Backend, dan DevOps engineering." },
-      { name: "Community Protocol", link: "https://t.me/sannnforums", detail: "Saluran komunikasi terenkripsi untuk diskusi teknis dan kolaborasi antar pengembang." },
+      { name: "Community Protocol", link: "https://t.me/sannnforums", detail: "Saluran komunikasi untuk diskusi teknis dan kolaborasi antar pengembang." },
       { name: "Virtual Number Gen", link: "https://t.me/sannnfreenokos", detail: "Bot penyedia nomor sementara untuk verifikasi OTP dan pengujian aplikasi." },
       { name: "Emergency Backup", link: "https://whatsapp.com/channel/0029VbBb7LiKrWQwnJ3MS33g", detail: "Jalur komunikasi cadangan untuk pembaruan status sistem kritis." },
     ],
@@ -37,8 +35,8 @@ export async function GET() {
       { name: "Social Analyzer", link: "https://socialmediastalkzone.vercel.app", desc: "Alat OSINT untuk analisis jejak digital profil media sosial publik." },
       { name: "Scraper Engine", link: "https://scrapewebsites.vercel.app", desc: "Mesin ekstraksi data web otomatis dengan kemampuan parsing DOM dinamis." },
       { name: "Prompt Engineer", link: "https://imagepromptstudio.vercel.app", desc: "Konverter gambar-ke-teks untuk optimasi prompt model difusi generatif." },
-      { name: "ShortLink Analytics", link: "https://shortlinkify.vercel.app", desc: "Manajemen URL dengan pelacakan statistik trafik mendalam." },
-      { name: "Portfolio Template", link: "https://portofolio-newproject.vercel.app", desc: "Boilerplate portofolio profesional berbasis Next.js siap deploy." },
+      { name: "ShortLink Analytics", link: "https://shortlinkify.vercel.app", desc: "web tools untuk mempersingkat url agar lebih profesional, mendukung url custom." },
+      { name: "Portfolio Template", link: "https://portofolio-newproject.vercel.app", desc: "Boilerplate portofolio profesional berbasis html-css-js siap deploy." },
       { name: "Payment Gateway V2", link: "https://paysannforum.pages.dev", desc: "Integrasi sistem pembayaran digital modern dengan UI responsif." },
       { name: "Source Library", link: "https://sourcecode-hub.pages.dev", desc: "Repositori terpusat untuk berbagi potongan kode dan modul siap pakai." },
       { name: "Classic Payment", link: "https://webpayment.pages.dev", desc: "Versi legacy sistem pembayaran untuk kompatibilitas browser lama." },
