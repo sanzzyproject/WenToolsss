@@ -2,220 +2,108 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Loader2, Search, Zap, LayoutGrid, Shield, Crown, Coffee } from 'lucide-react';
 import Link from 'next/link';
 
-export default function Dashboard() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+export default function Home() {
+  const [techStack, setTechStack] = useState([]);
 
   useEffect(() => {
     fetch('/api/data')
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
-        setLoading(false);
+        setTechStack(data.techStack || []);
       });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-darkBg text-white gap-4">
-        <div className="relative">
-             <div className="w-16 h-16 border-4 border-sannBlue/30 border-t-sannBlue rounded-full animate-spin"></div>
-             <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-                <Zap size={20} className="text-white animate-pulse"/>
-             </div>
-        </div>
-        <p className="text-gray-500 font-mono text-sm animate-pulse">Loading SANN404 Assets...</p>
-      </div>
-    );
-  }
-
-  // Animation Variants
-  const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
-  };
-
-  const itemAnim = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0 }
-  };
-
   return (
-    <div className="min-h-screen bg-darkBg text-sannWhite p-4 md:p-8 relative selection:bg-sannBlue selection:text-white">
+    <main className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
       
-      {/* Dynamic Background */}
-      <div className="fixed top-0 right-0 w-[50vw] h-[50vh] bg-sannBlue/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-[50vw] h-[50vh] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <motion.div 
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="max-w-7xl mx-auto space-y-12 relative z-10"
-      >
-        
-        {/* Header Dashboard */}
-        <header className="glass-panel p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 border-b-2 border-sannBlue/20">
-            <div className="flex items-center gap-4">
-               <div className="w-12 h-12 bg-sannBlue rounded-xl flex items-center justify-center shadow-lg shadow-sannBlue/30">
-                  <LayoutGrid className="text-white" size={24}/>
-               </div>
-               <div>
-                  <h1 className="text-2xl font-bold tracking-tight">Console Dashboard</h1>
-                  <p className="text-gray-400 text-xs md:text-sm font-mono">Welcome back, SANN404 Developer.</p>
-               </div>
+      {/* NAVBAR */}
+      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md px-6 py-5 border-b border-gray-100">
+        <div className="container mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full border border-black flex items-center justify-center font-bold text-sm font-serif">
+              S4
             </div>
-            <Link href="/" className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-sm font-medium transition-all text-gray-300 border border-white/10 flex items-center gap-2">
-              &larr; Back to Home
+            <span className="font-bold text-sm tracking-wide hidden sm:block">/ hello@sann404.dev</span>
+          </div>
+          
+          <div className="hidden md:flex gap-8 text-sm font-medium text-gray-600">
+            <a href="#" className="hover:text-black transition-colors">Product</a>
+            <a href="#" className="hover:text-black transition-colors">Resources</a>
+            <a href="#" className="hover:text-black transition-colors">Our Work</a>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <Link href="/dashboard" className="text-sm font-medium hover:underline">FAQ</Link>
+            <Link href="/dashboard" className="px-5 py-2.5 rounded-full border border-black text-sm font-medium hover:bg-black hover:text-white transition-all">
+              Open Dashboard
             </Link>
-        </header>
+          </div>
+        </div>
+      </nav>
 
-        {/* SECTION 1: PREMIUM ACCESS (Highlight) */}
-        {data.premium && (
-          <motion.a 
-            variants={itemAnim}
-            href={data.premium.link}
-            target="_blank"
-            className="block relative group"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative bg-cardBg rounded-2xl p-6 md:p-8 border border-yellow-500/30 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
-              
-              {/* Pattern Background */}
-              <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(#fbbf24 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+      {/* HERO SECTION */}
+      <section className="pt-40 pb-20 px-6 container mx-auto text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase mb-6 block">
+            — DEVELOPMENT ECOSYSTEM —
+          </span>
+          
+          <h1 className="text-5xl md:text-7xl font-serif text-black leading-[1.1] mb-8">
+            The Essential Stack That <br/>
+            <span className="italic">Empowers</span> Developers
+          </h1>
+          
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-12 font-light">
+            A platform delivering ultra-fast, dynamic & personalized project resources. <br/>
+            Everything you need in one unified workflow.
+          </p>
 
-              <div className="flex items-start gap-5 relative z-10">
-                <div className="p-4 bg-yellow-500/20 rounded-2xl text-yellow-400 shadow-inner shadow-yellow-500/10">
-                  <Crown size={32} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-2xl font-bold text-white group-hover:text-yellow-400 transition-colors">
-                      {data.premium.title}
-                    </h3>
-                    <span className="px-2 py-0.5 bg-yellow-500 text-black text-[10px] font-bold rounded uppercase tracking-wider">
-                      {data.premium.badge}
-                    </span>
-                  </div>
-                  <p className="text-gray-400 text-sm max-w-lg">{data.premium.desc}</p>
-                </div>
+          {/* TECH STACK GRID (REPLACING THE ICONS IN IMAGE) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-5xl mx-auto mb-16">
+            {techStack.slice(0, 5).map((tech, idx) => (
+              <div key={idx} className="bg-white p-6 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-gray-50 flex flex-col items-center gap-4 hover:-translate-y-1 transition-transform cursor-pointer relative group">
+                {idx === 2 && (
+                  <div className="absolute top-4 right-4 w-3 h-3 bg-black rounded-full border-2 border-white"></div>
+                )}
+                <img src={tech.logo} alt={tech.name} className="w-12 h-12 object-contain" />
+                <span className="text-sm font-bold text-gray-800">{tech.name}</span>
               </div>
-              
-              <div className="relative z-10 px-8 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold rounded-xl shadow-lg shadow-yellow-500/20 group-hover:scale-105 transition-transform flex items-center gap-2">
-                Get Access
-                <ExternalLink size={16} />
-              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col items-center gap-6">
+            <Link href="/dashboard">
+              <button className="px-10 py-4 bg-black text-white rounded-full font-medium text-lg hover:shadow-2xl hover:shadow-gray-400/50 transition-all transform hover:scale-105">
+                Get Started — It's Free
+              </button>
+            </Link>
+            
+            <div className="flex gap-8 text-xs font-medium text-gray-500 mt-4">
+              <span className="flex items-center gap-1">✓ Free Access</span>
+              <span className="flex items-center gap-1">✓ No Credit Card Required</span>
+              <span className="flex items-center gap-1">✓ Open Source</span>
             </div>
-          </motion.a>
-        )}
-
-        {/* SECTION 2: MAIN TOOLS (Large Grid) */}
-        <section>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-8 w-1 bg-sannBlue rounded-full"></div>
-            <h3 className="font-bold text-xl tracking-wide">CORE UTILITIES</h3>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.mainTools.map((tool, idx) => (
-              <motion.a
-                key={idx}
-                variants={itemAnim}
-                href={tool.link}
-                target="_blank"
-                className="glass-panel p-6 rounded-2xl hover:bg-sannBlue/10 transition-all group border border-white/5 hover:border-sannBlue/50 relative overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-                    <ExternalLink size={18} className="text-gray-500 group-hover:text-sannBlue" />
-                </div>
-                
-                <div className="mb-4 w-12 h-12 rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-white/5">
-                   {/* Icon Placeholder logic based on text */}
-                   <span className="text-2xl">
-                     {tool.icon === 'Globe' ? '🌐' : 
-                      tool.icon === 'Map' ? '🗺️' : 
-                      tool.icon === 'MessageCircle' ? '💬' : 
-                      tool.icon === 'Bot' ? '🤖' : '📂'}
-                   </span>
-                </div>
-                
-                <h4 className="font-bold text-lg mb-2 text-white group-hover:text-sannBlue transition-colors">{tool.name}</h4>
-                <p className="text-sm text-gray-400 leading-relaxed line-clamp-2">
-                  {tool.detail}
-                </p>
-              </motion.a>
-            ))}
-          </div>
-        </section>
-
-        {/* SECTION 3: PROJECT REPOSITORY (Compact Grid) */}
-        <section>
-          <div className="flex items-center gap-3 mb-6 mt-8">
-             <div className="h-8 w-1 bg-green-500 rounded-full"></div>
-             <h3 className="font-bold text-xl tracking-wide">PROJECT REPOSITORY</h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {data.projects.map((proj, idx) => (
-              <motion.a
-                key={idx}
-                variants={itemAnim}
-                href={proj.link}
-                target="_blank"
-                className="flex items-start gap-4 p-5 rounded-xl border border-white/5 bg-cardBg hover:bg-gray-800 transition-all hover:-translate-y-1 group relative overflow-hidden"
-              >
-                {/* Status Indicator */}
-                <div className="mt-1.5 w-2.5 h-2.5 rounded-full bg-gray-600 group-hover:bg-green-400 transition-colors shadow-[0_0_10px_rgba(74,222,128,0)] group-hover:shadow-[0_0_10px_rgba(74,222,128,0.5)] shrink-0"></div>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-start">
-                    <h4 className="font-bold text-gray-200 group-hover:text-white mb-1 truncate pr-2">
-                        {proj.name}
-                    </h4>
-                    {/* Tags */}
-                    <div className="hidden sm:flex gap-1">
-                        {proj.tags && proj.tags.map((tag, tIdx) => (
-                            <span key={tIdx} className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-gray-500 border border-white/5">{tag}</span>
-                        ))}
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors line-clamp-2">
-                    {proj.desc}
-                  </p>
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </section>
-
-        {/* Footer Support Area */}
-        <motion.div variants={itemAnim} className="pt-12 mt-12 border-t border-white/10 text-center">
-          <div className="inline-block p-[2px] rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 mb-8 hover:scale-105 transition-transform">
-            <a 
-              href={data.company.support}
-              target="_blank"
-              className="block px-8 py-3 rounded-full bg-darkBg hover:bg-gray-900 transition-all text-white font-bold flex items-center gap-3"
-            >
-              <Coffee size={20} className="text-pink-500" />
-              Traktir Kopi (Support)
-            </a>
-          </div>
-          
-          <div className="flex flex-col items-center gap-2">
-              <div className="flex items-center gap-2 text-sannBlue font-bold text-lg">
-                 <Shield size={18}/> {data.company.owner}
-              </div>
-              <p className="text-gray-600 text-xs font-mono">
-                {data.company.copyright} <br/>
-                {data.company.full_credit}
-              </p>
           </div>
         </motion.div>
+      </section>
 
-      </motion.div>
-    </div>
+      {/* FOOTER LOGOS */}
+      <footer className="py-12 border-t border-gray-100 mt-10">
+        <div className="container mx-auto px-6 flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+           {/* Mockup logos for visual balance */}
+           <h3 className="font-bold text-xl font-serif">Express.js</h3>
+           <h3 className="font-bold text-xl font-serif">React</h3>
+           <h3 className="font-bold text-xl font-serif">Next.js</h3>
+           <h3 className="font-bold text-xl font-serif">Tailwind</h3>
+           <h3 className="font-bold text-xl font-serif">GitHub</h3>
+        </div>
+      </footer>
+    </main>
   );
 }
