@@ -6,7 +6,7 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfa
 
 export const metadata = {
   title: 'SANN404 FORUM | Developer Ecosystem',
-  description: 'Premium Tools Hub connecting developers.',
+  description: 'The Essential API & Tools That Help Connecting Team.',
 }
 
 export default function RootLayout({ children }) {
