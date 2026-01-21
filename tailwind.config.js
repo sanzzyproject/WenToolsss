@@ -8,10 +8,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        sannWhite: '#f8fafc', // Putih Tua (Slate-50)
-        sannBlue: '#1e40af',  // Biru Tua
-        sannBlueLight: '#3b82f6', // Biru Terang
+        darkBg: '#0B0C10',       // Hitam Pekat
+        darkCard: '#1F2833',     // Abu Gelap untuk Card
+        neonPurple: '#C5C6C7',   // Abu Terang text
+        sannAccent: '#66FCF1',   // Cyan Neon (Aksen)
+        sannViolet: '#8b5cf6',   // Ungu sesuai gambar referensi
+        sannDarkViolet: '#4c1d95',
       },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        }
+      }
     },
   },
   plugins: [],
